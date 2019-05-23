@@ -32,7 +32,7 @@ From: ubuntu:16.04
     apt-get -y install build-essential gfortran
 
     # install R bioconductor including DESeq2
-    Rscript -e "install.packages('BioCManager', repos='https://cloud.r-project.org'); BioCManager::install('ggtree')"
+    Rscript -e "install.packages('BiocManager', repos='https://cloud.r-project.org'); BiocManager::install('ggtree')"
     Rscript -e "source ('https://bioconductor.org/biocLite.R'); biocLite(c('ape', 'pegas', 'adegenet', 'phangorn', 'sqldf', 'ggplot2', 'ggExtra', 'phytools', 'DESeq2','monocle', 'edgeR','ShortRead','rtracklayer','GenomicFeatures','Rsamtools','biomaRt','Repitools','QuasR'))"
 
 %environment
