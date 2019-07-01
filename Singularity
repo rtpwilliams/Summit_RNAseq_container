@@ -35,9 +35,14 @@ From: ubuntu:16.04
     Rscript -e "install.packages('BiocManager', repos='https://cran.rstudio.com'); BiocManager::install('ggtree')"
     Rscript -e "source ('https://bioconductor.org/biocLite.R'); biocLite(c('ape', 'pegas', 'adegenet', 'phangorn', 'sqldf', 'ggplot2', 'ggExtra', 'phytools', 'DESeq2','monocle', 'edgeR','ShortRead','rtracklayer','GenomicFeatures','Rsamtools','biomaRt','Repitools','QuasR'))"
 
+    # install fastp
+    wget http://opengene.org/fastp/fastp -P /opt/bin/
+    export PATH=/opt/bin/fastp:$PATH
+
 %environment
     export LANG=en_US.UTF-8
     export LANGUAGE=en_US:en
     export LC_ALL=en_US.UTF-8
     export XDG_RUNTIME_DIR=""
     export PATH=/opt/miniconda3/bin:$PATH
+    export PATH=/opt/bin/fastp:$PATH
