@@ -37,7 +37,8 @@ From: ubuntu:16.04
 
     # install fastp
     wget http://opengene.org/fastp/fastp -P /opt/bin/
-    export PATH=/opt/bin/fastp:$PATH
+    chmod a+x /opt/bin/fastp
+    export PATH="/opt/bin:$PATH"
 
 %environment
     export LANG=en_US.UTF-8
