@@ -2,7 +2,8 @@ BootStrap: docker
 From: ubuntu:16.04
 
 %files
-    environment.yml
+    package_list.txt
+
 %post
 
     # install some system deps
@@ -24,9 +25,9 @@ From: ubuntu:16.04
     rm -fr Miniconda3-latest-Linux-x86_64.sh
     export PATH=/opt/miniconda3/bin:$PATH
     conda update -n base conda
-
-    # download and install software defined in environment.yml
-    conda env create -f environment.yml
+    conda config --add channels conda-forge
+    conda config --add channels bioconda
+    conda install --yes --file package_list.txt
 
     # install the R programming language
     #conda install --yes -c conda-forge r-base==3.5.1
