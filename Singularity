@@ -2,7 +2,7 @@ BootStrap: docker
 From: ubuntu:16.04
 
 %files
-    package_list.txt
+    environment.yml
 
 %post
 
@@ -21,33 +21,20 @@ From: ubuntu:16.04
 
     # download and install miniconda3
     curl -sSL -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    bash Miniconda3-latest-Linux-x86_64.sh -p /opt/miniconda3 -b
+    bash Miniconda3-latest-Linux-x86_64.sh -p /opt/conda -b
     rm -fr Miniconda3-latest-Linux-x86_64.sh
-    export PATH=/opt/miniconda3/bin:$PATH
+    export PATH=/opt/conda/bin:$PATH
     conda update -n base conda
-    conda config --add channels conda-forge
-    conda config --add channels bioconda
-    conda install --yes --file package_list.txt
 
-    # install the R programming language
-    #conda install --yes -c conda-forge r-base==3.5.1
-
-    # install some dependencies to build R packages
-    #apt-get -y install build-essential gfortran
-
-    # install R bioconductor including DESeq2
-    #Rscript -e "install.packages('BiocManager', repos='https://cran.rstudio.com'); BiocManager::install('ggtree')"
-    #Rscript -e "source ('https://bioconductor.org/biocLite.R'); biocLite(c('ape', 'pegas', 'adegenet', 'phangorn', 'sqldf', 'ggplot2', 'ggExtra', 'phytools', 'DESeq2','monocle', 'edgeR','ShortRead','rtracklayer','GenomicFeatures','Rsamtools','biomaRt','Repitools','QuasR'))"
-
-    # install fastp
-    #wget http://opengene.org/fastp/fastp -P /opt/bin/
-    #chmod a+x /opt/bin/fastp
-    #export PATH="/opt/bin:$PATH"
+    # download software through environment.yml and set as default environment
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+    echo "source activate $(head -1 environment.yml | cut -d' ' -f2)" > ~/.bashrc
+    /opt/conda/bin/conda env create -f environment.yml
 
 %environment
+    export PATH=/opt/conda/envs/$(head -1 environment.yml | cut -d' ' -f2)/bin:$PATH
     export LANG=en_US.UTF-8
     export LANGUAGE=en_US:en
     export LC_ALL=en_US.UTF-8
     export XDG_RUNTIME_DIR=""
-    export PATH=/opt/miniconda3/bin:$PATH
-    #export PATH=/opt/bin/fastp:$PATH
+    export PATH=/opt/conda/bin:$PATH
