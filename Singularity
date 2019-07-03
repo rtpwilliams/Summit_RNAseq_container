@@ -1,6 +1,8 @@
 BootStrap: docker
 From: ubuntu:16.04
 
+%files
+    environment.yml
 %post
 
     # install some system deps
@@ -22,23 +24,24 @@ From: ubuntu:16.04
     rm -fr Miniconda3-latest-Linux-x86_64.sh
     export PATH=/opt/miniconda3/bin:$PATH
     conda update -n base conda
-    conda config --add channels conda-forge
-    conda config --add channels bioconda
+
+    # download and install software defined in environment.yml
+    conda env create -f environment.yml
 
     # install the R programming language
-    conda install --yes -c conda-forge r-base==3.5.1
+    #conda install --yes -c conda-forge r-base==3.5.1
 
     # install some dependencies to build R packages
-    apt-get -y install build-essential gfortran
+    #apt-get -y install build-essential gfortran
 
     # install R bioconductor including DESeq2
-    Rscript -e "install.packages('BiocManager', repos='https://cran.rstudio.com'); BiocManager::install('ggtree')"
-    Rscript -e "source ('https://bioconductor.org/biocLite.R'); biocLite(c('ape', 'pegas', 'adegenet', 'phangorn', 'sqldf', 'ggplot2', 'ggExtra', 'phytools', 'DESeq2','monocle', 'edgeR','ShortRead','rtracklayer','GenomicFeatures','Rsamtools','biomaRt','Repitools','QuasR'))"
+    #Rscript -e "install.packages('BiocManager', repos='https://cran.rstudio.com'); BiocManager::install('ggtree')"
+    #Rscript -e "source ('https://bioconductor.org/biocLite.R'); biocLite(c('ape', 'pegas', 'adegenet', 'phangorn', 'sqldf', 'ggplot2', 'ggExtra', 'phytools', 'DESeq2','monocle', 'edgeR','ShortRead','rtracklayer','GenomicFeatures','Rsamtools','biomaRt','Repitools','QuasR'))"
 
     # install fastp
-    wget http://opengene.org/fastp/fastp -P /opt/bin/
-    chmod a+x /opt/bin/fastp
-    export PATH="/opt/bin:$PATH"
+    #wget http://opengene.org/fastp/fastp -P /opt/bin/
+    #chmod a+x /opt/bin/fastp
+    #export PATH="/opt/bin:$PATH"
 
 %environment
     export LANG=en_US.UTF-8
@@ -46,4 +49,4 @@ From: ubuntu:16.04
     export LC_ALL=en_US.UTF-8
     export XDG_RUNTIME_DIR=""
     export PATH=/opt/miniconda3/bin:$PATH
-    export PATH=/opt/bin/fastp:$PATH
+    #export PATH=/opt/bin/fastp:$PATH
