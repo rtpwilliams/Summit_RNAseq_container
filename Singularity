@@ -38,3 +38,6 @@ From: ubuntu:16.04
     export LC_ALL=en_US.UTF-8
     export XDG_RUNTIME_DIR=""
     export PATH=/opt/conda/bin:$PATH
+
+%runscript
+    exec "$@"
