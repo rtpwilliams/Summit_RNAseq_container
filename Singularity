@@ -28,11 +28,11 @@ From: ubuntu:16.04
 
     # download software through environment.yml and set as default environment
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
-    echo "source activate $(head -1 environment.yml | cut -d' ' -f2)" > ~/.bashrc
+    echo "source activate summit_rnaseq" > ~/.bashrc
     /opt/conda/bin/conda env create -f environment.yml
 
 %environment
-    export PATH=/opt/conda/envs/$(head -1 environment.yml | cut -d' ' -f2)/bin:$PATH
+    export PATH=/opt/conda/envs/summit_rnaseq/bin:$PATH
     export LANG=en_US.UTF-8
     export LANGUAGE=en_US:en
     export LC_ALL=en_US.UTF-8
